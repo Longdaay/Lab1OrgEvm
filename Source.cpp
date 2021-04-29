@@ -1,7 +1,6 @@
 //Лабораторная работа № 1 - работа с двоичным представлением чисел в памяти ПК
 #include <iostream>
 #include <climits>
-#include <vector>
 #include <Windows.h>
 
 namespace s // пространство имен s для объединения типов данных для вводимого числа
@@ -160,6 +159,39 @@ void checkdigit_f()
 	}
 }
 
+bool CheckForward()
+{
+	bool forward;
+	int cinValue;
+
+	while (true)
+	{
+		bool bIsFind = false;
+		std::cin >> cinValue;
+		switch (cinValue)
+		{
+		case 1:
+			forward = true;
+			bIsFind = true;
+			break;
+		case 2:
+			forward = false;
+			bIsFind = true;
+			break;
+		default:
+			std::cout << "\nНекорректное число. Попробуйте снова :\n";
+			break;
+		}
+		if (bIsFind)
+			return forward;
+	}
+}
+
+void MoveBitsByShiftStep(int revers_array[], bool forward, int NumberOlderBit, int CountBits, int ShiftStep)
+{
+
+}
+
 int main()
 {
 	setlocale(0, "");
@@ -167,6 +199,10 @@ int main()
 	int number_of_bit = 0; // номер бита, которым производим сдвиг
 	const unsigned short qual = 64; // обозначает разрядность будущего числа
 	int revers_array[qual]; // массив, который хранит слепок числа в перевернутом виде
+	int NumberOlderBit;
+	int CountBits;
+	bool forward;
+	int ShiftStep;
 
 	std::cout << "___________________ I ЧАСТЬ - _____________________" << '\n';
 	std::cout << "                  Целое число long         " << '\n';
@@ -194,6 +230,23 @@ int main()
 	std::cout << '\n';
 
 	system("pause");
+
+	std::cout << "___________________ III ЧАСТЬ - _____________________" << '\n';
+	std::cout << "               Циклический сдвиг        " << '\n';
+	std::cout << "Выберите направление сдвига: " << '\n';
+	std::cout << "1. Налево\n";
+	std::cout << "2. Направо\n";
+
+	forward = CheckForward();
+
+	std::cout << "Введите номер старшего бита: ";
+	std::cin >> NumberOlderBit;
+	std::cout << "Введите количество бит, которое необходимо сдвинуть ";
+	std::cin >> CountBits;
+	std::cout << "Введите шаг сдвига: ";
+	std::cin >> ShiftStep;
+
+	MoveBitsByShiftStep(revers_array, forward, NumberOlderBit, CountBits, ShiftStep);
 
 	return 0;
 }
